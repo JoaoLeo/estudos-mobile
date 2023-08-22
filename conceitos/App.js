@@ -1,25 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Header from './components/Header';
 import Card from './components/Card';
+import Buttons from './components/Buttons';
 
 export default function App() {
   return (
     <> 
+
     <ScrollView style={{
-      marginTop: 50
+      margin: 15
     }}> 
-    <View style={styles.card}>
+   
    <Header/>
-      <Text style={styles.titulo}>hello world!</Text>
-      <StatusBar style="auto" />
-    </View>
-
-
-   
-   <Card/>
-   <Card/>
-   
+   <Buttons/>
+   <Card nome={"Stark"}>
+    <Text> winter is coming </Text>
+    <Button title='detalhes'/>
+   </Card>
+   <Card nome={"Baratheon"}></Card>
+   <Card nome={"Snow"}/>
     </ScrollView>
     </>
   );
@@ -28,7 +28,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },

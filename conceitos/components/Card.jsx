@@ -1,12 +1,15 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-const Card = () => {
+const Card = (props) => {
+
+  const nome = props.nome|| ""
+
   return (
     <>
      <View style={styles.card}>
-      <Text style={styles.titulo}>jooj</Text>
-      <Text> teste </Text>
+      <Text style={styles.titulo}>{nome}</Text>
+      {props.children}
     </View>
     </>
   )
@@ -24,10 +27,10 @@ const styles = StyleSheet.create({
     fontSize: 50 ,
     padding: 10,
     marginBottom: 20,
-    borderBottomColor: 'black',
+    borderBottomColor: 'purple',
     borderBottomStyle: 'solid',
-    borderBottomWidth: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundColor: 'white'
      }
 });
 

@@ -5,7 +5,10 @@ const Header = () => {
   return (
     <>
      
-    <View style={{backgroundColor: 'purple'}}> <Text> Conceitos </Text> </View>
+    <Text style={{
+    backgroundColor: 'purple', 
+    marginBottom: 20,
+    width: 'auto'}}> Conceitos </Text>
     
     </>
   )
