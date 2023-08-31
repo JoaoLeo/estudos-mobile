@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Header from './components/Header';
-import Card from './components/Card';
+import Card from './components/CardTeste';
 import Buttons from './components/Buttons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import Pagina1 from './screens/Pagina1';
 import Pagina2 from './screens/Pagina2';
 import Arrays from './screens/Arrays';
 import Objetos from './screens/Objetos';
+import Estado from './screens/Estado';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
    <NavigationContainer>
       
    <Stack.Navigator>
+   <Stack.Screen name="Estado" component={Estado} options={{title: 'Estado'}}/>
    <Stack.Screen name="Objetos" component={Objetos} options={{title: 'Objeto'}}/>
    <Stack.Screen name="Arrays" component={Arrays} options={{title: 'Array'}}/>
    <Stack.Screen name="Pagina 1" component={Pagina1} options={{title: 'Página principal'}}/>
