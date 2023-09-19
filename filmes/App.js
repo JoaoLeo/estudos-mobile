@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import FilmesPopulares from './screens/filmes/FilmesPopulares';
 import { PaperProvider } from 'react-native-paper';
+import FilmesDetalhes from './screens/filmes/FilmesDetalhes';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name='filmes-populares' component={FilmesPopulares} options={{title: "Filmes populares"}} />
+          <Stack.Screen name='filmes-detalhes' component={FilmesDetalhes} options={{title: "Filmes detalhes"}} />
         </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>
