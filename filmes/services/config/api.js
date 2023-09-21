@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import {TOKEN} from 'react-native-dotenv'
 import token from '../../token';
 
 const api = axios.create({

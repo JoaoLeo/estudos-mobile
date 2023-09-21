@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Text } from 'react-native-paper'
+import { Avatar, Card, IconButton, Text } from 'react-native-paper'
 import api from '../../services/config/api'
 import { ScrollView, View } from 'react-native'
 
@@ -33,21 +33,14 @@ const FilmesDetahes = ({navigation, route}) => {
   
   </Card>
   <Text variant="titleLarge">Atores</Text>
-      {atores.map(a =>(      
-       <Card key={a.id} style={
-        {
-          margin: 10
-        }
-      }>
-      <Card.Cover source={{ uri: `https://image.tmdb.org/t/p/w500/${a.profile_path}` }} />
-      <Card.Content>
-        <Text variant="titleLarge" style={{
-          fontWeight: 'bolder'
-        }}>Ator: {a.name}</Text>
-        <Text variant="bodyMedium">Personagem: {a.character}</Text>
-      </Card.Content>
-    
-    </Card>
+    {atores.map(a =>(      
+    <Card.Title
+    key={a.id}
+    title={a.name}
+    subtitle={a.character}
+    left={(props) =>  <Avatar.Image size={50} source={{ uri: `https://image.tmdb.org/t/p/w500/${a.profile_path}` }} />}
+    right={(props) => <IconButton {...props} icon="arrow-right" onPress={() => { navigation.push('atores-detalhes',{id: a.id})}} />}
+  />
       ))}
     </View>
     </ScrollView>
