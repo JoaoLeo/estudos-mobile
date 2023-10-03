@@ -6,22 +6,54 @@ import FilmesPopulares from './screens/filmes/FilmesPopulares';
 import { PaperProvider } from 'react-native-paper';
 import FilmesDetalhes from './screens/filmes/FilmesDetalhes';
 import AtoresDetahes from './screens/atores/AtoresDetalhes';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FilmesStack from './screens/filmes/FilmesStack';
 
-const Stack = createNativeStackNavigator();
+
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
 
   return (
     <>
-    <PaperProvider> 
+    <PaperProvider>       
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='filmes-populares' component={FilmesPopulares} options={{title: "Filmes populares"}} />
-          <Stack.Screen name='filmes-detalhes' component={FilmesDetalhes} options={{title: "Filmes detalhes"}} />
-          <Stack.Screen name='atores-detalhes' component={AtoresDetahes} options={{title: "Atores detalhes"}} />
-        </Stack.Navigator>
+      <Tab.Navigator>
+      <Tab.Screen 
+      name='filmes-populares' 
+      component={FilmesStack}
+      options={{
+        tabBarLabel: 'Filmes populares',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="movie-open" color={color} size={26} />
+        ),
+      }}
+       />
+      <Tab.Screen 
+       name='filmes-detalhes'
+       component={FilmesDetalhes}
+       options={{
+        tabBarLabel: 'Séries',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="bell" color={color} size={26} />
+        ),
+      }}
+        />
+      <Tab.Screen
+       name='atores-detalhes' 
+       component={AtoresDetahes} 
+       options={{
+        tabBarLabel: 'Ator detalhes',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="account" color={color} size={26} />
+        ),
+      }}
+       />
+    </Tab.Navigator>
+
       </NavigationContainer>
-      </PaperProvider>
+   </PaperProvider>
     </>
   );
 }
