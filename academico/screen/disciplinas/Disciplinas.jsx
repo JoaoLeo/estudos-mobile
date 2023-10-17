@@ -6,7 +6,7 @@ const Disciplinas = ({navigation}) => {
   return (
     <>
     <View> 
-     <Button onPress={() => navigation.push('form-disciplinas')}> Ir </Button>
+    <Button mode='contained' onPress={() => navigation.push('form-disciplinas')}> Novo </Button>
     </View>
     
     </>

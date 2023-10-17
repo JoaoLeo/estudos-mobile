@@ -6,7 +6,7 @@ const Turmas = ({navigation}) => {
   return (
     <>
     <View>
-      <Button onPress={() => navigation.push('form-turmas')}> Ir </Button>
+    <Button mode='contained' onPress={() => navigation.push('form-turmas')}> Novo </Button>
     </View>
     </>
   )

@@ -6,7 +6,7 @@ const Alunos = ({navigation}) => {
   return (
     <>
     <View>
-      <Button onPress={() => navigation.push('form-alunos')}> Ir </Button>
+    <Button mode='contained' onPress={() => navigation.push('form-alunos')}> Novo </Button>
     </View>
     </>
   )
