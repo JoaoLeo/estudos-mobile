@@ -1,16 +1,25 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
-const ProfessoresForm = () => {
+const ProfessoresForm = ({navigation}) => {
   const [dados, setDados] = useState({});
 
   function handleChange(valor, campo){
     setDados({...dados, [campo]: valor})
   }
 
-  function salvar(){
-   console.log(dados);
+  async function salvar(){
+    AsyncStorage.getItem('professores').then(res =>{
+      const professores = JSON.parse(res) || []        
+    if(JSON.stringify(dados) != "{}"){
+      professores.push(dados)
+      console.log(dados);
+      AsyncStorage.setItem('professores', JSON.stringify(professores))
+      navigation.goBack();
+    }
+    })
   }
   return (
     <>
@@ -28,7 +37,7 @@ const ProfessoresForm = () => {
     />
     <TextInput style={{ 
       marginTop: 5}} 
-      label="Duração" 
+      label="cpf" 
       keyboardType='decimal-pad'
       mode='outlined' 
       value={dados.cpf}  

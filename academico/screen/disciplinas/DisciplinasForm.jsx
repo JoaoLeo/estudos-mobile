@@ -1,16 +1,27 @@
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react'
+import { ScrollView } from 'react-native';
+import { Button, Text, TextInput } from 'react-native-paper';
 
-const DisciplinasForm = () => {
+const DisciplinasForm = ({navigation}) => {
   const [dados, setDados] = useState({});
 
   function handleChange(valor, campo){
     setDados({...dados, [campo]: valor})
   }
 
-  function salvar(){
-   console.log(dados);
+  async function salvar(){
+    AsyncStorage.getItem('disciplinas').then(res =>{
+      const disciplinas = JSON.parse(res) || []        
+    if(JSON.stringify(dados) != "{}"){
+      disciplinas.push(dados)
+      console.log(dados);
+      AsyncStorage.setItem('disciplinas', JSON.stringify(disciplinas))
+      navigation.goBack();
+    }
+    })
+
   }
-  
   return (
     <>
     <ScrollView style={{
