@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Formik } from 'formik';
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
@@ -10,7 +11,7 @@ const DisciplinasForm = ({navigation}) => {
     setDados({...dados, [campo]: valor})
   }
 
-  async function salvar(){
+  async function salvar(dados){
     AsyncStorage.getItem('disciplinas').then(res =>{
       const disciplinas = JSON.parse(res) || []        
     if(JSON.stringify(dados) != "{}"){
@@ -28,7 +29,13 @@ const DisciplinasForm = ({navigation}) => {
       marginTop: 5
     }}> 
     <Text> Formulário de disciplinas </Text>
-    <TextInput style={{ 
+    <Formik
+     initialValues={curso}
+     onSubmit={values => salvar(values)}
+   >
+    {({values, handleChange, handleSubmit})=>(
+      <View>
+ <TextInput style={{ 
       marginTop: 5}} 
       label="Duração" 
       keyboardType='decimal-pad'
@@ -51,8 +58,14 @@ const DisciplinasForm = ({navigation}) => {
        value={dados.curso_id}
        onChangeText={(valor) => handleChange(valor, "curso_id")}
        />
+   
+    <Button onPress={handleSubmit}> Enviar </Button>
+      </View>
+    )}
+
+   </Formik>
+   
     </ScrollView>
-    <Button onPress={salvar}> Enviar </Button>
     </>
   )
 }

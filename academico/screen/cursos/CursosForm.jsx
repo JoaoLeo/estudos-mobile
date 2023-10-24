@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import * as Yup from 'yup';
+
+import { Formik } from 'formik';
+
 const CursosForm = ({navigation, route}) => {
   
   const curso = route.params?.obj  || {}
-  const id = route.params?.id || 0
-  const [dados, setDados] = useState(curso);
+  const id = route.params?.id
 
-  function handleChange(valor, campo){
-    setDados({...dados, [campo]: valor})
-  }
-  async function salvar(){
+  async function salvar(dados){
     AsyncStorage.getItem('cursos').then(res =>{
       const cursos = JSON.parse(res) || []        
     if(JSON.stringify(dados) != "{}"){
@@ -28,37 +28,61 @@ const CursosForm = ({navigation, route}) => {
     })
 
   }
-  
+  const cursoValidator = Yup.object().shape({
+    nome: Yup.string()
+    .nonNullable()
+    .min(2,'Valor muito pequeno')
+    .required('campo obrigatorio'),
+    duracao: Yup.number().min(1,'Valor muito pequeno'),
+    modalidade: Yup.string()
+  })
   return (
     <>
     <ScrollView style={{
       marginTop: 5
     }}> 
     <Text> Formulário de curso </Text>
-    <TextInput style={{
+
+    <Formik
+     initialValues={curso}
+     validationSchema={cursoValidator}
+     
+     onSubmit={values => salvar(values)}
+   >
+    {({values, handleChange, handleSubmit, errors, touched})=>(
+      <View>
+        <TextInput style={{
       marginTop: 5
     }} 
     label="Nome" 
     mode='outlined' 
-    value={dados.nome}
-    onChangeText={(valor) => handleChange(valor, "nome")}
+    value={values.nome}
+    onChangeText={handleChange("nome")}
     />
+        {(errors.nome && touched.nome) && <Text style={{color: 'red'}}> {errors.nome} </Text>}
     <TextInput style={{ 
       marginTop: 5}} 
       label="Duração" 
       keyboardType='decimal-pad'
       mode='outlined' 
-      value={dados.duracao}  
-      onChangeText={(valor) => handleChange(valor, "duracao")}
+      value={values.duracao}  
+      onChangeText={handleChange("duracao")}
       />
+      {(errors.duracao && touched.duracao) && <Text style={{color: 'red'}}> {errors.duracao} </Text>}
     <TextInput style={{ 
       marginTop: 5 }} label="Modalidade"
        mode='outlined' 
-       value={dados.modalidade}
-       onChangeText={(valor) => handleChange(valor, "modalidade")}
+       value={values.modalidade}
+       onChangeText={handleChange("modalidade")}
        />
-    </ScrollView>
-    <Button onPress={salvar}> Enviar </Button>
+   {(errors.modalidade && touched.modalidade) && <Text style={{color: 'red'}}> {errors.modalidade} </Text>}
+
+    <Button onPress={handleSubmit}> Enviar </Button>
+      </View>
+    )}
+
+   </Formik>
+   </ScrollView>
     </>
   )
 }
