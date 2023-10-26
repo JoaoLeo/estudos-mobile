@@ -3,14 +3,22 @@ import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import * as Yup from 'yup';
 
 import { Formik } from 'formik';
+import cursoValidators from '../../validators/cursoValidators';
 
 const CursosForm = ({navigation, route}) => {
   
-  const curso = route.params?.obj  || {}
+  let curso = {
+    nome: '',
+    duracao: '',
+    modalidade: ''
+  }
+   
   const id = route.params?.id
+  if(id){ 
+    curso = route.params?.obj 
+  }
 
   async function salvar(dados){
     AsyncStorage.getItem('cursos').then(res =>{
@@ -28,14 +36,7 @@ const CursosForm = ({navigation, route}) => {
     })
 
   }
-  const cursoValidator = Yup.object().shape({
-    nome: Yup.string()
-    .nonNullable()
-    .min(2,'Valor muito pequeno')
-    .required('campo obrigatorio'),
-    duracao: Yup.number().min(1,'Valor muito pequeno'),
-    modalidade: Yup.string()
-  })
+
   return (
     <>
     <ScrollView style={{
@@ -45,11 +46,11 @@ const CursosForm = ({navigation, route}) => {
 
     <Formik
      initialValues={curso}
-     validationSchema={cursoValidator}
+     validationSchema={cursoValidators}
      
      onSubmit={values => salvar(values)}
    >
-    {({values, handleChange, handleSubmit, errors, touched})=>(
+    {({values, handleChange, handleSubmit, errors, touched, setFieldValue})=>(
       <View>
         <TextInput style={{
       marginTop: 5

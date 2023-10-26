@@ -60,6 +60,7 @@ export default function App() {
         ),
       }}
        />
+        { /* 
         <Tab.Screen
        name='turmas' 
        component={TurmasStack} 
@@ -69,12 +70,14 @@ export default function App() {
           <MaterialCommunityIcons name="clipboard" color={color} size={26} />
         ),
       }}
-       />
+       /> */
+        }
     </Tab.Navigator>
 
       </NavigationContainer>
    </PaperProvider>
     </>
+    
   );
 }
 

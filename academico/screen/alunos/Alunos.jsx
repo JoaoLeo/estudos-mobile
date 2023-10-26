@@ -7,14 +7,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Alunos = ({navigation}) => {
   const [alunos, setalunos] = useState([]);
 
+  function get(){
+    AsyncStorage.getItem('alunos').then(res =>{
+      res = JSON.parse(res) || []
+      setalunos(res);
+    })
+  }
+  function excluir(id){
+    const confirm = window.confirm('deseja apagar?')
+    if(confirm){
+    alunos.splice(id,1);
+    AsyncStorage.setItem('alunos', JSON.stringify(alunos));
+  }
+    get();
+  }
   useFocusEffect(
     React.useCallback(() => {
-      AsyncStorage.getItem('alunos').then(res =>{
-        res = JSON.parse(res) || []
-        setalunos(res);
-      })
+      get()
     }, [])
   );
+
   return (
     <>
     <ScrollView style={{padding: 10}}> 
@@ -32,8 +44,10 @@ const Alunos = ({navigation}) => {
                 <Text variant="bodyMedium">telefone: {c.telefone}</Text>
               </Card.Content>
               <Card.Actions>
-            <IconButton icon="delete-forever"></IconButton>
-            <IconButton icon="pencil"></IconButton>
+            <IconButton icon="delete-forever" onPress={()=>{excluir(i)}}></IconButton>
+            <IconButton
+             icon="pencil"
+             onPress={() => navigation.push('form-alunos', {id : i, obj : c})}></IconButton>
           </Card.Actions>
           </Card>
           </>

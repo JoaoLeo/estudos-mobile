@@ -44,7 +44,9 @@ const Professores = ({navigation}) => {
               </Card.Content>
               <Card.Actions>
             <IconButton icon="delete-forever"  onPress={()=>{excluir(i)}}></IconButton>
-            <IconButton icon="pencil"></IconButton>
+            <IconButton icon="pencil" 
+           onPress={() => navigation.push('form-professores', {id : i, obj : c})}
+            ></IconButton>
           </Card.Actions>
           </Card>
           </>
