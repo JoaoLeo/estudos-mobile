@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
+import disciplinaValidator from '../../validators/disciplinaValidator';
 
 const DisciplinasForm = ({navigation,route}) => {
   
@@ -42,6 +43,7 @@ const DisciplinasForm = ({navigation,route}) => {
     <Text> Formulário de disciplinas </Text>
     <Formik
      initialValues={disciplina}
+     validationSchema={disciplinaValidator}
      onSubmit={values => salvar(values)}
    >
     {({values, handleChange, handleSubmit})=>(

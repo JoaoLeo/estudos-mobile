@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { mask } from 'remask'
+import alunoValidators from '../../validators/alunoValidator';
 
 const AlunosForm = ({navigation, route}) => {
   
@@ -35,6 +36,7 @@ const AlunosForm = ({navigation, route}) => {
     <Text> Formulário de aluno </Text>
     <Formik
      initialValues={aluno}
+     validationSchema={alunoValidators}
      onSubmit={values => salvar(values)}
    >
     {({values, handleChange, handleSubmit, errors, touched, setFieldValue})=>(

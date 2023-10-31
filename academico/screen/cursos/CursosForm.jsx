@@ -3,12 +3,12 @@ import { ScrollView, View } from 'react-native'
 import { Button, Text, TextInput } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-
+import {Picker} from '@react-native-picker/picker';
 import { Formik } from 'formik';
 import cursoValidators from '../../validators/cursoValidators';
 
 const CursosForm = ({navigation, route}) => {
-  
+  const [selectedLanguage, setSelectedLanguage] = useState();  
   let curso = {
     nome: '',
     duracao: '',
@@ -70,14 +70,16 @@ const CursosForm = ({navigation, route}) => {
       onChangeText={handleChange("duracao")}
       />
       {(errors.duracao && touched.duracao) && <Text style={{color: 'red'}}> {errors.duracao} </Text>}
-    <TextInput style={{ 
-      marginTop: 5 }} label="Modalidade"
-       mode='outlined' 
-       value={values.modalidade}
-       onChangeText={handleChange("modalidade")}
-       />
-   {(errors.modalidade && touched.modalidade) && <Text style={{color: 'red'}}> {errors.modalidade} </Text>}
-
+   
+   <Picker
+  selectedValue={values.modalidade}
+  onValueChange={handleChange('modalidade')}
+>
+<Picker.Item label="modalidade" value="" />
+  <Picker.Item label="ead" value="ead" />
+  <Picker.Item label="presencial" value="presencial" />
+</Picker>
+{(errors.modalidade && touched.modalidade) && <Text style={{color: 'red'}}> {errors.modalidade} </Text>}
     <Button onPress={handleSubmit}> Enviar </Button>
       </View>
     )}

@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import React, { useState } from 'react'
 import { ScrollView, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
+import { mask } from 'remask';
 
 const ProfessoresForm = ({navigation, route}) => {
   
@@ -51,7 +52,7 @@ const ProfessoresForm = ({navigation, route}) => {
       keyboardType='decimal-pad'
       mode='outlined' 
       value={values.cpf}  
-      onChangeText={handleChange("cpf")}
+      onChangeText={value => setFieldValue('cpf',mask(value, '999.999.999-99'))}
       />
       
     <TextInput style={{ 
